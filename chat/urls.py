@@ -13,4 +13,6 @@ urlpatterns = [
     path('api/users', views.user_list, name='user-list'),
     path('logout', logout, {'next_page': 'index'}, name='logout'),
     path('register', views.register_view, name='register'),
+	path('main', views.main_view, name='main'),
+	path('newsfeed', views.newsfeed_view, name='newsfeed'),
 ]

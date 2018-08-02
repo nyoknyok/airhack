@@ -1,0 +1,238 @@
+<!DOCTYPE html> {% load static %}{% block body %}
+<html>
+
+<head>
+    <title>Fly With Us</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/sweetalert.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/open-iconic.min.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <style type="text/css">
+        .btn-chat {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-chat:hover {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-chat:focus,
+        .btn-chat.focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-chat.disabled,
+        .btn-chat:disabled {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-chat:not(:disabled):not(.disabled):active,
+        .btn-chat:not(:disabled):not(.disabled).active,
+        .show>.btn-primary.dropdown-toggle {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-chat:not(:disabled):not(.disabled):active:focus,
+        .btn-chat:not(:disabled):not(.disabled).active:focus,
+        .show>.btn-chat.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+        }
+
+        html {
+            overflow: scroll;
+        }
+
+        .swal-title {
+            margin: 0px;
+            font-size: 16px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+            margin-bottom: 28px;
+        }
+        .backgroundtype1 {
+              background-color: #90CAF9;
+        }
+
+    </style>
+
+    <header>
+    </header>
+    <main role="main">
+            <div class="row">
+            <div class="container-fluid backgroundtype1">
+            <h3 class="ml-2 mt-3 mb-3"><font color="white">{{ request.user.first_name }}님의 담벼락</font></h3>                
+            </div>
+            <div class="container-fluid backgroundtype1">
+            <a class="btn btn-light ml-2 btn-sm mb-2" href="/main" role="button">나의 페이지 »</a>
+            <a class="btn btn-light ml-0 btn-sm mb-2" href="/chat" role="button">대화방 바로가기 »</a>
+            <a class="btn btn-light ml-0 btn-sm mb-2" role="button" data-toggle="collapse" data-target="#newsfeed_commit" aria-expanded="false" aria-controls="newsfeed_commit">담벼락 작성하기 »</a>
+                </div>
+        </div>
+        <div class="form-group collapse" id="newsfeed_commit">
+        <textarea class="form-control" id="inewsfeed_commit_text" placeholder="내용을 입력하세요." rows="3"></textarea>
+        <a class="btn btn-primary ml-1 mb-1 mt-1" name="newsfeed_commit" onclick="newsfeed_commit();" type="button" role="button">
+        <font color="white">작성</font></a>
+        </div>
+            <div class="row w-70">
+                
+                <div class="container mt-3">
+                    <div class="media  border border-primary rounded">
+                        <div class="media mr-2">
+                            <img class="mt-2 mr-3 ml-2 " src="{% static 'images/face0.jpg' %}" alt="김공부" width="100" height="100">
+                            <div class="media-body">
+                                <h4 class="mt-2">김공부</h4>
+                                <footer class="blockquote-footer">대외기관/국직부대 국방통합데이터센터 2센터 통합관제실</footer>
+                                안녕하세요! 전우님들, 프로그래밍 공부를 하려고하는데 갈피를 못잡겠어요. 어디부터 시작하면 좋을까요?<br>
+
+                                <div class="btn-group btn-group-toggle mt-1">
+                                    <label>
+                                    <button type="button" class="btn btn-outline-primary"
+                                            id="thumb-up" onclick="thumb_up()"
+                                            role="button" aria-pressed="true" >추천</button>
+                                </label>
+                                    <label>
+                                <button type="button" class="btn btn-outline-primary " role="button" aria-pressed="true"
+                                data-toggle="collapse" data-target="#newsfeed-comment" aria-expanded="false" 
+                                aria-controls="newsfeed-comment">
+                                답글</button>
+                                </label>
+                                </div>
+                                <span class="oi ml-2" data-glyph="thumb-up"><font class="ml-2">111</font></span>
+                                <span class="oi ml-3" data-glyph="chat"><font class="ml-2">100</font></span>
+
+                                <div class="form-group collapse w-75" id="newsfeed-comment">
+                                    <textarea class="form-control" id="newsfeed-comment-text" rows="3" placeholder="내용을 입력해주세요."></textarea>
+                                    <a class="btn btn-primary mb-1 mt-1" tpye="button" id="newsfeed-comment-commit" role="button" onclick="newsfeed_comment_commit();"><font color="white">입력 »</font></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media border border-dark mt-2 rounded">
+                        <img class="mt-3 mr-3 ml-2" src="{% static 'images/face1.jpg' %}" alt="김고고" width="100" height="100">
+                        <div class="media-body">
+                            <h4 class="mt-3">김고고</h4>
+                            <footer class="blockquote-footer">공군직할부대 정보체계관리단 체계개발대</footer>
+                            <p>요즘 인기있는 파이썬이나 자바스크립트부터 시작하는게 어떨까요?</p>
+                        </div>
+                    </div>
+                    <div class="media border border-dark mt-2 rounded">
+                        <img class="mt-3 mr-3 ml-2" src="{% static 'images/face2.jpg' %}" alt="박근육" width="100" height="100">
+                        <div class="media-body">
+                            <h4 class="mt-3">박근육</h4>
+                            <footer class="blockquote-footer">18전투비행단 기지방호전대 기동타격대대</footer>
+                            <p>안녕하세요. 18비행단 기동타격대대에서 근무중인 박근육입니다. 군생활을 하면서 쌓아올린 저의 운동방법을 지도해주고자합니다. 전역 후 해변가에서 멋진 몸매를 뽐내고싶으신 분들 멘티 신청해주세요.</p>
+                        </div>
+                    </div>
+                    <div class="media border border-dark mt-2 rounded">
+                        <img class="mt-3 mr-3" src="{% static 'images/face3.jpg' %}" alt="고그림" width="100" height="100">
+                        <div class="media-body">
+                            <h4 class="mt-3">고그림</h4>
+                            <footer class="blockquote-footer">대외기관/국직부대 계룡대 근무지원단 수송대대</footer>
+                            <p>안녕하세요~ 계근단에서 근무중인 고그림이라고 합니다. 밖에서 미술을 하다왔고 미술을 시작한지 12년이 다 되었네요~ 10여년간 숙달된 실력을 이용해 미술 강의를 해봤으면 해서 멘토로 지원하게 되었습니다~ 관심 있으신분들은 멘티 신청해주세요~</p>
+                        </div>
+                    </div>
+                    <div class="media border border-dark mt-2 rounded">
+                        <img class="mt-3 mr-3" src="{% static 'images/face4.jpg' %}" alt="이국어" width="100" height="100">
+                        <div class="media-body">
+                            <h4 class="mt-3">이국어</h4>
+                            <footer class="blockquote-footer">3여단 본부 인사처 군무원인사관리과</footer>
+                            <p>안녕하세요. 3여단 본부에서 근무중인 이국어라고 합니다. 사회에서 고등학교 수학교사를 하다가 입대하였습니다. 수학은 어렵지 않습니다. 수포자분들도 최선을 다해서 가드쳐 드릴테니 수학공부를 하고 싶은 분들은 저에게 멘티 신청을 해주세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/sweetalert.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}" type="text/javascript"></script>
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
+    <script>
+        $("#newsfeed-comment-text").val("");
+
+    </script>
+    <script>
+        function newsfeed_comment_commit() {
+            swal({
+                    title: "답글 입력",
+                    text: "답글을 입력하시겠습니까?",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-info",
+                    confirmButtonText: "입력",
+                    cancelButtonText: "취소",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal("입력완료!", "정상적으로 입력되었습니다!", "success");
+                        setTimeout(function() {
+                            document.location.href = "javascript:history.go(0)"
+                        }, 1000);
+
+                    } else {
+                        swal("취소완료!", "정상적으로 취소되었습니다!", "error");
+                    }
+                });
+        }
+
+    </script>
+    <script>
+    function newsfeed_commit() {
+            swal({
+                    title: "담벼락 작성",
+                    text: "담벼락을 작성하시겠습니까?",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-info",
+                    confirmButtonText: "작성",
+                    cancelButtonText: "취소",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal("작성완료!", "정상적으로 작성되었습니다!", "success");
+                        setTimeout(function() {
+                            document.location.href = "javascript:history.go(0)"
+                        }, 1000);
+
+                    } else {
+                        swal("취소완료!", "정상적으로 취소되었습니다!", "error");
+                    }
+                });
+        }
+
+    </script>
+    <script>
+        function thumb_up() {
+            swal({
+                title: "추천완료!",
+                text: "추천이 완료되었습니다!",
+            });
+        }
+
+    </script>
+    {% endblock %}
+</body>
+
+</html>

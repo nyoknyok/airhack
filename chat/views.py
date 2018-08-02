@@ -10,7 +10,7 @@ from chat.serializers import MessageSerializer, UserSerializer
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('chats')
+        return redirect('main')
     if request.method == 'GET':
         return render(request, 'chat/index.html', {})
     if request.method == "POST":
@@ -20,7 +20,7 @@ def index(request):
             login(request, user)
         else:
             return HttpResponse('{"error": "User does not exist"}')
-        return redirect('chats')
+        return redirect('main')
 
 
 @csrf_exempt
@@ -51,7 +51,7 @@ def message_list(request, sender=None, receiver=None):
     List all required messages, or create a new message.
     """
     if request.method == 'GET':
-        messages = Message.objects.filter(sender_id=sender, receiver_id=receiver, is_read=False)
+        messages = Message.objects.filter(sender_id=sender,receiver_id=receiver, is_read=False)
         serializer = MessageSerializer(messages, many=True, context={'request': request})
         for message in messages:
             message.is_read = True
@@ -72,7 +72,7 @@ def register_view(request):
     Render registration template
     """
     if request.user.is_authenticated:
-        return redirect('chats')
+        return redirect('main')
     return render(request, 'chat/register.html', {})
 
 
@@ -93,3 +93,9 @@ def message_view(request, sender, receiver):
                        'receiver': User.objects.get(id=receiver),
                        'messages': Message.objects.filter(sender_id=sender, receiver_id=receiver) |
                                    Message.objects.filter(sender_id=receiver, receiver_id=sender)})
+
+def main_view(request):
+	return render(request, 'chat/main.html',{})
+
+def newsfeed_view(request):
+	return render(request, 'chat/newsfeed.html',{})
